@@ -1,3 +1,4 @@
+using System.Reflection;
 using Core.Entities;
 using Microsoft.EntityFrameworkCore;
 
@@ -9,5 +10,13 @@ namespace Infrastructure.Data {
         }
 
         public DbSet<Company> Companies { get; set; }
+        public DbSet<Exchange> Exchanges { get; set; }
+        
+        //Overriding default config
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+            {
+                base.OnModelCreating(modelBuilder);
+                modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
+            }
     }
 }
