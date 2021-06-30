@@ -1,7 +1,10 @@
+using API.Dtos;
+using AutoMapper;
 using Core.Entities;
 using Core.Interfaces;
 using Core.Specification;
 using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace API.Controllers
@@ -11,9 +14,13 @@ namespace API.Controllers
     public class CompanyController : ControllerBase
     {
         private readonly IGenericRepository<Company> _companyRepo;
-        public CompanyController(IGenericRepository<Company> companyRepo)
+        private readonly IMapper _mapper;
+
+        public CompanyController(IGenericRepository<Company> companyRepo
+            , IMapper mapper)
         {
             _companyRepo = companyRepo;
+            _mapper = mapper;
         }
 
         [HttpPost]
@@ -44,31 +51,27 @@ namespace API.Controllers
             return Ok(comp);
         }
         [HttpGet]
-        public async Task<ActionResult<Company>> GetCompany()
+        public async Task<ActionResult<IReadOnlyList<CompanyToReturnDto>>> GetCompany()
         {
             var spec = new CompanyWithExchangeSpecification();
-            var comp = await _companyRepo.ListAsync(spec);
-            return Ok(comp);
+            var companies = await _companyRepo.ListAsync(spec);
+            return _mapper.Map<IReadOnlyList<Company>, List<CompanyToReturnDto>>(companies);
         }
 
         [HttpGet("id/{id}")]
-        public async Task<ActionResult<Company>> GetCompany(int id)
+        public async Task<ActionResult<CompanyToReturnDto>> GetCompany(int id)
         {
             var spec = new CompanyWithExchangeSpecification(id);
-            var comp = await _companyRepo.GetEntityWithSpec(spec);
-            //return _mapper.Map<Product, ProductsToReturnDto>(product);
-
-            return Ok(comp);
+            var company = await _companyRepo.GetEntityWithSpec(spec);
+            return _mapper.Map<Company, CompanyToReturnDto>(company);
         }
 
         [HttpGet("isin/{id}")]
-        public async Task<ActionResult<Company>> GetCompany(string id)
+        public async Task<ActionResult<CompanyToReturnDto>> GetCompany(string id)
         {
             var spec = new CompanyWithExchangeSpecification(id);
-            var comp = await _companyRepo.GetEntityWithSpec(spec);
-            //return _mapper.Map<Product, ProductsToReturnDto>(product);
-
-            return Ok(comp);
+            var company = await _companyRepo.GetEntityWithSpec(spec);
+            return _mapper.Map<Company, CompanyToReturnDto>(company);
         }
     }
 }
