@@ -1,2 +1,27 @@
 <h1>{{title}}</h1>
 <app-nav-bar></app-nav-bar>
+<h2>Portfolio</h2>
+<div class="table-responsive">
+  <table class="table table-striped table-sm">
+    <thead>
+      <tr>
+        <th>Id</th>
+        <th>Name</th>
+        <th>Exchange</th>
+        <th>Ticker</th>
+        <th>ISIN</th>
+        <th>Website</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor='let Company of companies'>
+        <td>{{Company.id}}</td>
+        <td>{{Company.name}}</td>
+        <td>{{Company.exchange}}</td>
+        <td>{{Company.ticker}}</td>
+        <td>{{Company.isin}}</td>
+        <td>{{Company.webSite}}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>

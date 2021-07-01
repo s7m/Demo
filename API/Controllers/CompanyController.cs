@@ -52,6 +52,7 @@ namespace API.Controllers
             return Ok(comp);
         }
         [HttpGet]
+        [AllowAnonymous]
         public async Task<ActionResult<IReadOnlyList<CompanyToReturnDto>>> GetCompany()
         {
             var spec = new CompanyWithExchangeSpecification();
