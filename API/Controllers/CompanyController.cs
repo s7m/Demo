@@ -9,9 +9,8 @@ using System.Threading.Tasks;
 
 namespace API.Controllers
 {
-    [ApiController]
-    [Route("api/[controller]")]
-    public class CompanyController : ControllerBase
+    
+    public class CompanyController : BaseAPIController
     {
         private readonly IGenericRepository<Company> _companyRepo;
         private readonly IMapper _mapper;
