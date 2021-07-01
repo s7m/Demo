@@ -3,13 +3,15 @@ using AutoMapper;
 using Core.Entities;
 using Core.Interfaces;
 using Core.Specification;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace API.Controllers
 {
-    
+    [Authorize]
+
     public class CompanyController : BaseAPIController
     {
         private readonly IGenericRepository<Company> _companyRepo;
