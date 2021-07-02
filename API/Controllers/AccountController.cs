@@ -52,9 +52,9 @@ namespace API.Controllers
         }
 
         [HttpPost("login")]
-        public async Task<ActionResult<UserDTO>> Login(string userName, string password)
+        public async Task<ActionResult<UserDTO>> Login(UserToLoginDTO userDTO)
         {
-            userName = userName.ToLower();
+            string userName = userDTO.UserName.ToLower();
 
             var user = await _context.Users.SingleOrDefaultAsync(u => u.UserName == userName);
 
@@ -64,7 +64,7 @@ namespace API.Controllers
             }
 
             using var hmac = new HMACSHA512(user.PasswordSalt);
-            var computedHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(password));
+            var computedHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(userDTO.Password));
 
             for (int i = 0; i < computedHash.Length; i++)
             {

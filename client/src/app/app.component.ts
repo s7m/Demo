@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { User } from './models/user';
 
 @Component({
   selector: 'app-root',
@@ -12,20 +13,22 @@ export class AppComponent implements OnInit {
   constructor(private http: HttpClient) {}
 
   ngOnInit() {
-    this.http.get('https://localhost:5001/api/Company').subscribe(
-    (resposne) => {
-      this.companies = resposne;
-      console.log(this.companies);
-    },
-    (error) => {
-      console.error(console.log(error));
-    }
-  );
+    this.getCompanies();
+    this.setCurrentUser();
+  }
+  setCurrentUser() {
+    const user: User = JSON.parse(localStorage.getItem('user'));
+  }
+  getCompanies() {
+    //Any deviation should
+    this.http.get('https://localhost:44356/api/Company').subscribe(
+      (resposne) => {
+        this.companies = resposne;
+        console.log(this.companies);
+      },
+      (error) => {
+        console.error(console.log(error));
+      }
+    );
   }
 }
-function GetCompanies() {
-  //Any deviation should
-
-}
-
-
