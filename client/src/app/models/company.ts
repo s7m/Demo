@@ -5,5 +5,5 @@ export interface Company {
   isin: string;
   name: string;
   ticker: string;
-  webSite: string;
+  website: string;
 }

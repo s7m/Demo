@@ -10,7 +10,7 @@ import { Company } from '../models/company';
 //ToDo:
 const httpOptions = {
   headers: new HttpHeaders({
-    Authorization: 'Bearer ' + JSON.parse(localStorage.getItem('user')).token
+    Authorization: 'Bearer ' + JSON.parse(localStorage.getItem('user')).token,
   }),
 };
 
@@ -39,5 +39,12 @@ export class CompanyService {
     var url = this.baseUrl + 'Company/isin/' + id;
     console.log(url);
     return this.http.get<Company>(url, httpOptions);
+  }
+
+  save(company: Company) {
+    console.log(company);
+    var url = this.baseUrl + 'company';
+    console.log(url);
+    return this.http.post(this.baseUrl + 'company', company);
   }
 }

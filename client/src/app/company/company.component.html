@@ -1,0 +1,9 @@
+<form  class="form-signin" #addCompanyForm ="ngForm" (ngSubmit) ="saveCompany()" autocomplete="off">
+  <h1 class="h3 mb-3 font-weight-normal">Enter company details</h1>
+  <input type="text" name="name" [(ngModel)]="company.name" class="form-control w-25" placeholder="Name" required="">
+  <input type="text" name="exchange" [(ngModel)]="company.exchange" class="form-control mt-2 w-25" placeholder="Exchange" required="">
+  <input type="text" name="ticker" [(ngModel)]="company.ticker" class="form-control mt-2 w-25" placeholder="Ticker" required="">
+  <input type="text" name="isin" [(ngModel)]="company.isin" class="form-control mt-2 w-25" placeholder="ISIN" required="">
+  <input type="text" name="website" [(ngModel)]="company.website" class="form-control mt-2 w-25" placeholder="Website" required="">
+  <button class="btn btn-lg btn-primary btn-block w-25 mt-2" type="submit">Save</button>
+</form>

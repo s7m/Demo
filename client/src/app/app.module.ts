@@ -7,15 +7,16 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NavBarComponent } from './nav-bar/nav-bar.component';
 import { HomeComponent } from './home/home.component';
 import { FormsModule } from '@angular/forms';
+import { CompanyComponent } from './company/company.component';
 
 @NgModule({
-  declarations: [AppComponent, NavBarComponent, HomeComponent],
+  declarations: [AppComponent, NavBarComponent, HomeComponent, CompanyComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     HttpClientModule,
-    FormsModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent],

@@ -5,6 +5,7 @@ using Core.Interfaces;
 using Core.Specification;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -26,22 +27,19 @@ namespace API.Controllers
 
         [HttpPost]
         [AllowAnonymous]
-        public async Task<ActionResult<Company>> AddCompany()
+        public async Task<ActionResult<Company>> AddCompany(CompanyDto companyDto)
         {
-            var comp = new Company
+            try
             {
-                //Id = 99,
-                ExchangeId=3,
-                Ticker="sss",
-                Name = "Test",
-                ISIN = "isintest1",
-                Website="ssswww"
-            };
-             await _companyRepo.Add(comp);
-            
-            //comp.Exchange = new Exchange { Name = "test exch", Id = 2 };
+                var company = _mapper.Map<CompanyDto, Company>(companyDto);
+                await _companyRepo.Add(company);
+                return Ok(company);
+            }
+            catch (Exception ex)
+            {
 
-            return Ok(comp);
+            }
+            return null;
         }
 
         [HttpPut]
@@ -60,7 +58,7 @@ namespace API.Controllers
             var spec = new CompanyWithExchangeSpecification(comp.Id);
             var company = await _companyRepo.GetEntityWithSpec(spec);
             company.Ticker = comp.Ticker;
-           await _companyRepo.Update(company);
+            await _companyRepo.Update(company);
 
             return Ok(company);
         }
