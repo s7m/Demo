@@ -1,10 +1,8 @@
 using API.Dtos;
 using Core.Entities;
 using Core.Interfaces;
-using Infrastructure.Data;
+using Core.Specification;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using System;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,10 +11,10 @@ namespace API.Controllers
 {
     public class AccountController : BaseAPIController
     {
-        private readonly CompanyContext _context;
+        private readonly IGenericRepository<AppUser> _context;
         private readonly ITokenService _tokenService;
 
-        public AccountController(CompanyContext context, ITokenService tokenService)
+        public AccountController(IGenericRepository<AppUser> context, ITokenService tokenService)
         {
             _tokenService = tokenService;
             _context = context;
@@ -40,8 +38,7 @@ namespace API.Controllers
                     PasswordSalt = hmac.Key
                 };
 
-                _context.Users.Add(user);
-                await _context.SaveChangesAsync();
+                await _context.Add(user);
                 return new UserDTO
                 {
                     UserName = user.UserName,
@@ -55,8 +52,8 @@ namespace API.Controllers
         public async Task<ActionResult<UserDTO>> Login(UserToLoginDTO userDTO)
         {
             string userName = userDTO.UserName.ToLower();
-
-            var user = await _context.Users.SingleOrDefaultAsync(u => u.UserName == userName);
+            var spec = new UseSpecification(userName);
+            var user = await _context.GetEntityWithSpec(spec);
 
             if (user == null)
             {
@@ -83,7 +80,9 @@ namespace API.Controllers
 
         private async Task<bool> UserExists(string userName)
         {
-            var isExists = await _context.Users.AnyAsync(x => x.UserName == userName.ToLower());
+            var spec = new UseSpecification(userName);
+            var user = await _context.GetEntityWithSpec(spec);
+            var isExists = user == null ? false : true;
             return isExists;
         }
     }

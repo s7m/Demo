@@ -25,14 +25,20 @@ namespace API.Controllers
         }
 
         [HttpPost]
+        [AllowAnonymous]
         public async Task<ActionResult<Company>> AddCompany()
         {
             var comp = new Company
             {
-                //Id = 1,
+                //Id = 99,
+                ExchangeId=3,
+                Ticker="sss",
                 Name = "Test",
-                ISIN = "isintest"
+                ISIN = "isintest1",
+                Website="ssswww"
             };
+             await _companyRepo.Add(comp);
+            
             //comp.Exchange = new Exchange { Name = "test exch", Id = 2 };
 
             return Ok(comp);
@@ -41,39 +47,45 @@ namespace API.Controllers
         [HttpPut]
         public async Task<ActionResult<Company>> UpdateCompany()
         {
-            var comp = new Company();
-            //{
-            //    //Id = 1,
-            //    Name = "Test",
-            //    ISIN = "isintest"
-            //};
-            //comp.Exchange = new Exchange { Name = "test exch", Id = 2 };
+            var comp = new Company
+            {
+                Id = 99,
+                ExchangeId = 3,
+                Ticker = "sss123",
+                Name = "Test",
+                ISIN = "isintest1",
+                Website = "ssswww"
+            };
 
-            return Ok(comp);
+            var spec = new CompanyWithExchangeSpecification(comp.Id);
+            var company = await _companyRepo.GetEntityWithSpec(spec);
+            company.Ticker = comp.Ticker;
+           await _companyRepo.Update(company);
+
+            return Ok(company);
         }
         [HttpGet]
-        [AllowAnonymous]
-        public async Task<ActionResult<IReadOnlyList<CompanyToReturnDto>>> GetCompany()
+        public async Task<ActionResult<IReadOnlyList<CompanyDto>>> GetCompany()
         {
             var spec = new CompanyWithExchangeSpecification();
             var companies = await _companyRepo.ListAsync(spec);
-            return _mapper.Map<IReadOnlyList<Company>, List<CompanyToReturnDto>>(companies);
+            return _mapper.Map<IReadOnlyList<Company>, List<CompanyDto>>(companies);
         }
 
         [HttpGet("id/{id}")]
-        public async Task<ActionResult<CompanyToReturnDto>> GetCompany(int id)
+        public async Task<ActionResult<CompanyDto>> GetCompany(int id)
         {
             var spec = new CompanyWithExchangeSpecification(id);
             var company = await _companyRepo.GetEntityWithSpec(spec);
-            return _mapper.Map<Company, CompanyToReturnDto>(company);
+            return _mapper.Map<Company, CompanyDto>(company);
         }
 
         [HttpGet("isin/{id}")]
-        public async Task<ActionResult<CompanyToReturnDto>> GetCompany(string id)
+        public async Task<ActionResult<CompanyDto>> GetCompany(string id)
         {
             var spec = new CompanyWithExchangeSpecification(id);
             var company = await _companyRepo.GetEntityWithSpec(spec);
-            return _mapper.Map<Company, CompanyToReturnDto>(company);
+            return _mapper.Map<Company, CompanyDto>(company);
         }
     }
 }

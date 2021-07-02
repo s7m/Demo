@@ -2,6 +2,7 @@
 using Core.Interfaces;
 using Core.Specification;
 using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -16,12 +17,38 @@ namespace Infrastructure.Data
         {
             _context = context;
         }
+        public async Task<int> Add(T entity)
+        {
+            try
+            {
+                _context.Set<T>().Add(entity);
+                return await _context.SaveChangesAsync();
+            }
+            catch (Exception ex)
+            {
+                // Exception()
+            }
+            return 0;
+        }
+
+        public async Task<int> Update(T entity)
+        {
+            try
+            {
+                _context.Set<T>().Update(entity);
+                return await _context.SaveChangesAsync();
+            }
+            catch (Exception ex)
+            {
+                // Exception()
+            }
+            return 0;
+        }
 
         public async Task<T> GetByIdAsync(int id)
         {
             return await _context.Set<T>().FindAsync(id);
         }
-
         public async Task<IReadOnlyList<T>> ListAllAsync()
         {
             return await _context.Set<T>().ToListAsync();
