@@ -6,6 +6,9 @@
  <ItemGroup>
   <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="5.0.6" />
 </ItemGroup>
+ <ItemGroup>
+   <Folder Include="Data\Migrations\" />
+ </ItemGroup>
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
   </PropertyGroup>

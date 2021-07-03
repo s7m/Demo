@@ -45,8 +45,10 @@ namespace Infrastructure.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<int>("ExchangeId")
-                        .HasColumnType("INTEGER");
+                    b.Property<string>("Exchange")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("ISIN")
                         .IsRequired()
@@ -69,39 +71,10 @@ namespace Infrastructure.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ExchangeId");
-
                     b.HasIndex(new[] { "ISIN" }, "UniqueCOL1")
                         .IsUnique();
 
                     b.ToTable("Companies");
-                });
-
-            modelBuilder.Entity("Core.Entities.Exchange", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(500)
-                        .HasColumnType("TEXT");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Exchanges");
-                });
-
-            modelBuilder.Entity("Core.Entities.Company", b =>
-                {
-                    b.HasOne("Core.Entities.Exchange", "Exchange")
-                        .WithMany()
-                        .HasForeignKey("ExchangeId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Exchange");
                 });
 #pragma warning restore 612, 618
         }

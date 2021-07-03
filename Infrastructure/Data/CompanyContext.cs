@@ -10,7 +10,6 @@ namespace Infrastructure.Data {
         }
 
         public DbSet<Company> Companies { get; set; }
-        public DbSet<Exchange> Exchanges { get; set; }
         public DbSet<AppUser> Users { get; set; }
 
         //Overriding default config

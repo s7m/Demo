@@ -34,10 +34,10 @@ export class HomeComponent implements OnInit {
       }
     );
   }
-  getCompanyByISIN(id) {
-    console.log(id);
+  getCompanyByISIN(isin) {
+    console.log(isin);
     this.companies = [];
-    this.companyService.searchByISIN(id).subscribe(
+    this.companyService.searchByISIN(isin).subscribe(
       (resp) => {
         this.companies[0] = resp;
         // console.log(this.companies);

@@ -10,8 +10,7 @@ namespace Infrastructure.Data.Config
         {
             builder.Property(p => p.Id).IsRequired();
             builder.Property(p => p.Name).IsRequired().HasMaxLength(500);
-            builder.HasOne(e => e.Exchange).WithMany()
-                .HasForeignKey(c => c.ExchangeId);
+            builder.Property(p => p.Exchange).IsRequired().HasMaxLength(100);
             builder.Property(p => p.Ticker).IsRequired().HasMaxLength(100);
             builder.HasIndex(p => p.ISIN, "UniqueCOL1").IsUnique(true);
             builder.Property(p => p.ISIN).IsRequired().HasMaxLength(100);;

@@ -6,17 +6,17 @@ namespace Core.Specification
     {
         public CompanyWithExchangeSpecification()
         {
-            AddInclude(x => x.Exchange);
+            //AddInclude(x => x.Exchange);
         }
 
         public CompanyWithExchangeSpecification(int id) : base(x => x.Id == id)
         {
-            AddInclude(x => x.Exchange);
+            //AddInclude(x => x.Exchange);
         }
 
         public CompanyWithExchangeSpecification(string isin) : base(x => x.ISIN == isin)
         {
-            AddInclude(x => x.Exchange);
+            //AddInclude(x => x.Exchange);
         }
     }
 }

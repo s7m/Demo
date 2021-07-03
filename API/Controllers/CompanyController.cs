@@ -48,7 +48,7 @@ namespace API.Controllers
             var comp = new Company
             {
                 Id = 99,
-                ExchangeId = 3,
+                Exchange = "exchange",
                 Ticker = "sss123",
                 Name = "Test",
                 ISIN = "isintest1",

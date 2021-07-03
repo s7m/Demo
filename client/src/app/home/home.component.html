@@ -4,8 +4,8 @@
     <button class="btn btn-primary mr-5" type="submit" (click)="getCompanyById(id)">Search</button>
   </form>
   <form #SearchByISINForm="ngForm" class="form-inline mt-2 mt-md-0" style="display:inline-block;" autocomplete="off">
-    <input name="serachByISIN" [(ngModel)]="id" class="form-control mr-sm-2" type="text" placeholder="ISIN">
-    <button class="btn btn-primary mr-5" type="submit" (click)="getCompanyByISIN(id)">Search</button>
+    <input name="serachByISIN" [(ngModel)]="isin" class="form-control mr-sm-2" type="text" placeholder="ISIN">
+    <button class="btn btn-primary mr-5" type="submit" (click)="getCompanyByISIN(isin)">Search</button>
   </form>
 </div>
 <button class="btn btn-primary mr-5 mt-3 mb-3" type="submit" (click)="navigateToCompany()">Add Company</button>
