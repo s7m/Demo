@@ -26,9 +26,8 @@ namespace Infrastructure.Data
             }
             catch (Exception ex)
             {
-                // Exception()
+                throw;
             }
-            return 0;
         }
 
         public async Task<int> Update(T entity)
@@ -38,11 +37,10 @@ namespace Infrastructure.Data
                 _context.Set<T>().Update(entity);
                 return await _context.SaveChangesAsync();
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                // Exception()
+                throw;
             }
-            return 0;
         }
 
         public async Task<T> GetByIdAsync(int id)

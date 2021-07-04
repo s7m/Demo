@@ -21,23 +21,26 @@ export class CompanyComponent implements OnInit {
   }
 
   saveCompany() {
-    this.companyService.save(this.company).subscribe(
-      resp =>{
-        console.log(resp);
+    this.companyService.save(this.company).subscribe((resp) => {
+      console.log(resp);
+      if (resp == true) {
+        window.location.href = '/home';
       }
-    );
+    });
   }
 
   getCompanyByQueryParam() {
     this.activatedRoute.queryParams.subscribe((params) => {
       this.companyId = params.id;
     });
-    this.companyService.searchById(this.companyId).subscribe(resp =>{
-      this.company = resp;
-      //console.log(resp);
-    },
-    error =>{
-      console.log(error);
-    });
+    this.companyService.searchById(this.companyId).subscribe(
+      (resp) => {
+        this.company = resp;
+        //console.log(resp);
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
   }
 }

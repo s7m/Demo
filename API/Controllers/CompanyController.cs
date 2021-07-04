@@ -27,7 +27,7 @@ namespace API.Controllers
 
         [HttpPost]
         [AllowAnonymous]
-        public async Task<ActionResult<Company>> SaveCompany(CompanyDto companyDto)
+        public async Task<ActionResult<bool>> SaveCompany(CompanyDto companyDto)
         {
             try
             {
@@ -41,13 +41,12 @@ namespace API.Controllers
                 {
                     await _companyRepo.Add(company);
                 }
-                return Ok(company);
+                return Ok(true);
             }
             catch (Exception ex)
             {
-
+                return false;
             }
-            return null;
         }
 
         [HttpPut] //Method not using now. SaveCompany is taking care of both insert and update
