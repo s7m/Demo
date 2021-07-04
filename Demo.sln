@@ -3,11 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30114.105
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "API", "API\API.csproj", "{12890301-4A91-4C60-B674-E81A503F6E2F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "API", "API\API.csproj", "{12890301-4A91-4C60-B674-E81A503F6E2F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core", "Core\Core.csproj", "{52F49D78-FE97-479E-8C25-4D132C316D00}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Core", "Core\Core.csproj", "{52F49D78-FE97-479E-8C25-4D132C316D00}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infrastructure", "Infrastructure\Infrastructure.csproj", "{A25F0A52-D1CE-46CE-BA63-DE76344BB515}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Infrastructure", "Infrastructure\Infrastructure.csproj", "{A25F0A52-D1CE-46CE-BA63-DE76344BB515}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "API.IntegrationTest", "API.IntegrationTest\API.IntegrationTest.csproj", "{1E00C48F-728F-431A-960F-86C3B49E6014}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,9 +19,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 		Release|x64 = Release|x64
 		Release|x86 = Release|x86
-	EndGlobalSection
-	GlobalSection(SolutionProperties) = preSolution
-		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{12890301-4A91-4C60-B674-E81A503F6E2F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -58,5 +57,23 @@ Global
 		{A25F0A52-D1CE-46CE-BA63-DE76344BB515}.Release|x64.Build.0 = Release|Any CPU
 		{A25F0A52-D1CE-46CE-BA63-DE76344BB515}.Release|x86.ActiveCfg = Release|Any CPU
 		{A25F0A52-D1CE-46CE-BA63-DE76344BB515}.Release|x86.Build.0 = Release|Any CPU
+		{1E00C48F-728F-431A-960F-86C3B49E6014}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1E00C48F-728F-431A-960F-86C3B49E6014}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1E00C48F-728F-431A-960F-86C3B49E6014}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{1E00C48F-728F-431A-960F-86C3B49E6014}.Debug|x64.Build.0 = Debug|Any CPU
+		{1E00C48F-728F-431A-960F-86C3B49E6014}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{1E00C48F-728F-431A-960F-86C3B49E6014}.Debug|x86.Build.0 = Debug|Any CPU
+		{1E00C48F-728F-431A-960F-86C3B49E6014}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1E00C48F-728F-431A-960F-86C3B49E6014}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1E00C48F-728F-431A-960F-86C3B49E6014}.Release|x64.ActiveCfg = Release|Any CPU
+		{1E00C48F-728F-431A-960F-86C3B49E6014}.Release|x64.Build.0 = Release|Any CPU
+		{1E00C48F-728F-431A-960F-86C3B49E6014}.Release|x86.ActiveCfg = Release|Any CPU
+		{1E00C48F-728F-431A-960F-86C3B49E6014}.Release|x86.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {BD120B75-0278-40A5-A397-C4DD6AE2F2C9}
 	EndGlobalSection
 EndGlobal
