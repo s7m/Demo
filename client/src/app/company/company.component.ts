@@ -1,3 +1,4 @@
+import { error } from '@angular/compiler/src/util';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Company } from '../models/company';
@@ -14,6 +15,7 @@ export class CompanyComponent implements OnInit {
   companyId: string;
   isin = '';
   isloggedIn: boolean;
+  validationErrors: any;
   constructor(
     private companyService: CompanyService,
     private activatedRoute: ActivatedRoute,
@@ -28,12 +30,18 @@ export class CompanyComponent implements OnInit {
   }
 
   saveCompany() {
-    this.companyService.save(this.company).subscribe((resp) => {
-      console.log(resp);
-      if (resp == true) {
-        window.location.href = '/home';
+    this.companyService.save(this.company).subscribe(
+      (resp) => {
+        console.log(resp);
+        if (resp == true) {
+          window.location.href = '/home';
+        }
+      },
+      (error) => {
+        this.validationErrors = error.errors;
+        console.log(this.validationErrors);
       }
-    });
+    );
   }
 
   getCompanyByQueryParam() {
@@ -45,7 +53,7 @@ export class CompanyComponent implements OnInit {
         this.company = resp;
       },
       (error) => {
-        console.log(error);
+
       }
     );
   }
