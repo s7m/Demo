@@ -8,9 +8,9 @@ import { Company } from '../models/company';
 
 //ToDo:
 const httpOptions = {
-  headers: new HttpHeaders({
-    Authorization: 'Bearer ' + JSON.parse(localStorage.getItem('user')).token,
-  }),
+ // headers: new HttpHeaders({
+   // Authorization: 'Bearer ' + JSON.parse(localStorage.getItem('user')).token,
+ // }),
 };
 
 @Injectable({
@@ -24,7 +24,7 @@ export class CompanyService {
   getCompanies() {
     var url = this.baseUrl + 'Company';
     //console.log(url);
-    return this.http.get<Company[]>(url, httpOptions);
+    return this.http.get<Company[]>(url);
   }
 
   searchById(id) {

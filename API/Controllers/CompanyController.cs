@@ -26,7 +26,6 @@ namespace API.Controllers
         }
 
         [HttpPost]
-        [AllowAnonymous]
         public async Task<ActionResult<bool>> SaveCompany(CompanyDto companyDto)
         {
             try
@@ -50,15 +49,16 @@ namespace API.Controllers
         }
 
         [HttpPut] //Method not using now. SaveCompany is taking care of both insert and update
-        //public async Task<ActionResult<Company>> UpdateCompany(CompanyDto companyDto)
-        //{
-        //    var company = _mapper.Map<CompanyDto, Company>(companyDto);
-        //    var spec = new CompanyWithExchangeSpecification(company.Id);
-        //    var company = await _companyRepo.GetEntityWithSpec(spec);
-        //    await _companyRepo.Update(company);
+                  //public async Task<ActionResult<Company>> UpdateCompany(CompanyDto companyDto)
+                  //{
+                  //    var company = _mapper.Map<CompanyDto, Company>(companyDto);
+                  //    var spec = new CompanyWithExchangeSpecification(company.Id);
+                  //    var company = await _companyRepo.GetEntityWithSpec(spec);
+                  //    await _companyRepo.Update(company);
 
         //    return Ok(company);
         //}
+        [AllowAnonymous]
         [HttpGet]
         public async Task<ActionResult<IReadOnlyList<CompanyDto>>> GetCompany()
         {

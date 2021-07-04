@@ -8,11 +8,9 @@ import { User } from '../models/user';
   providedIn: 'root',
 })
 export class AccountService {
-
   baseUrl = environment.apiUrl;
-  //private currentUserSource = new ReplaySubject<User>(1);
-  //currentUser$ = this.currentUserSource.asObservable();
-
+  private currentUserSource = new ReplaySubject<User>(1);
+  currentUser$ = this.currentUserSource.asObservable();
   constructor(private http: HttpClient) {}
 
   //ToDo
@@ -22,7 +20,7 @@ export class AccountService {
         const user = response;
         if (user) {
           localStorage.setItem('user', JSON.stringify(user));
-          //this.currentUserSource.next(user);
+          this.currentUserSource.next(user);
         }
       })
     );
@@ -30,5 +28,10 @@ export class AccountService {
 
   logout() {
     localStorage.removeItem('user');
+    this.currentUserSource.next(null);
+  }
+
+  setCurrentUser(user: User){
+    this.currentUserSource.next(user);
   }
 }

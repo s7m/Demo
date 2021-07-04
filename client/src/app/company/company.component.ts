@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Company } from '../models/company';
+import { AccountService } from '../_services/account.service';
 import { CompanyService } from '../_services/company.service';
 
 @Component({
@@ -11,12 +12,18 @@ import { CompanyService } from '../_services/company.service';
 export class CompanyComponent implements OnInit {
   company: any = {}; //ToDo
   companyId: string;
+  isin = '';
+  isloggedIn: boolean;
   constructor(
     private companyService: CompanyService,
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
+    private accountService: AccountService
   ) {}
 
   ngOnInit() {
+    //this.isloggedIn=this.accountService.isloggedIn();
+    console.log(this.isloggedIn);
+
     this.getCompanyByQueryParam();
   }
 
@@ -36,7 +43,6 @@ export class CompanyComponent implements OnInit {
     this.companyService.searchById(this.companyId).subscribe(
       (resp) => {
         this.company = resp;
-        //console.log(resp);
       },
       (error) => {
         console.log(error);

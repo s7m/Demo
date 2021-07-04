@@ -10,7 +10,7 @@
         <a class="nav-link" href="\home">Home <span class="sr-only">(current)</span></a>
       </li>
     </ul>
-    <form #loginForm="ngForm" *ngIf="!loggedIn" class="form-inline mt-2 mt-md-0" data-dashlane-rid="c558eb73ebc638e1"
+    <form #loginForm="ngForm" *ngIf="(accountService.currentUser$|async)==null" class="form-inline mt-2 mt-md-0" data-dashlane-rid="c558eb73ebc638e1"
       data-form-type="" (ngSubmit)="login()" autocomplete="off">
       <input name="username" [(ngModel)]="model.username" class="form-control mr-sm-2" type="text"
         placeholder="Username">
@@ -18,7 +18,7 @@
         placeholder="Password">
       <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Login</button>
     </form>
-    <button *ngIf="loggedIn" class="btn btn-outline-danger my-2 my-sm-0" type="submit"
+    <button *ngIf="(accountService.currentUser$|async)!=null" class="btn btn-outline-danger my-2 my-sm-0" type="submit"
       (click)="logout()">Logout</button>
   </div>
 </nav>
