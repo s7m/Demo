@@ -26,10 +26,10 @@ namespace API.Controllers
         }
 
         [HttpGet("emailexists")]
-        public async Task<ActionResult<bool>> CheckISINExistsAsync([FromQuery] string isin)
+        public async Task<ActionResult<CompanyDto>> CheckISINExistsAsync([FromQuery] string isin)
         {
             var company = await GetCompany(isin);
-            return company.Value == null ? false : true;
+            return company;
         }
 
         [HttpPost]
@@ -41,23 +41,24 @@ namespace API.Controllers
 
                 if (company.Id > 0)
                 {
-                    var resultComp = await GetCompany(companyDto.Id);
-                    var companyFromDB = resultComp.Value;
-                    if (companyFromDB != null)
-                    {
-                        if (companyFromDB.ISIN.ToLower() != company.ISIN.ToLower())
-                        {
-                            if (CheckISINExistsAsync(company.ISIN).Result.Value)
-                            {
-                                return new BadRequestObjectResult(new ErrorResponse { Errors = new[] { "ISIN already exists." } });
-                            }
-                        }
+                    //var resultComp = await GetCompany(companyDto.Id);
+                    //var companyFromDB = resultComp.Value;
+                    //if (companyFromDB != null)
+                    //{
+                        //if (companyFromDB.ISIN.ToLower() != company.ISIN.ToLower())
+                        //{
+                        //    if (CheckISINExistsAsync(company.ISIN).Result.Value)
+                        //    {
+                        //        return new BadRequestObjectResult(new ErrorResponse { Errors = new[] { "ISIN already exists." } });
+                        //    }
+                        //}
                         await _companyRepo.Update(company);
-                    }
+                    //}
                 }
                 else
                 {
-                    if (CheckISINExistsAsync(company.ISIN).Result.Value)
+                    var result = CheckISINExistsAsync(company.ISIN);
+                    if (result.Result.Value!=null) 
                     {
                         return new BadRequestObjectResult(new ErrorResponse { Errors = new[] { "ISIN already exists." } });
                     }

@@ -36,11 +36,9 @@ export class CompanyService {
   }
 
   save(company: Company) {
-
     var url = this.baseUrl + 'company';
-    console.log(company);
-
-    return this.http.post(url, company);
+    var httpOptions=this.tokenService.setHttpOptions();
+    return this.http.post(url, company,httpOptions);
   }
 
 
