@@ -14,7 +14,7 @@
   #isinNgModel="ngModel"
   required pattern="^[A-Z]{2}([A-Z0-9]){9}[0-9]$"
   [class.is-invalid]="(isinNgModel.touched || isinNgModel.dirty) && isinNgModel.errors?.IsinInvalid"
-  maxlength="100"><i class="fa fa-info-circle" title="12-character alphanumeric code with the first two characters must be letters / non numeric."></i>
+  maxlength="12"><i class="fa fa-info-circle" title="12-character alphanumeric code with the first two characters must be letters / non numeric."></i>
 </div>
 
   <input type="text" name="website" [(ngModel)]="company.webSite" class="form-control mt-2 w-25" placeholder="Website"

@@ -1,6 +1,7 @@
 import { error } from '@angular/compiler/src/util';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { Company } from '../models/company';
 import { AccountService } from '../_services/account.service';
 import { CompanyService } from '../_services/company.service';
@@ -19,7 +20,8 @@ export class CompanyComponent implements OnInit {
   constructor(
     private companyService: CompanyService,
     private activatedRoute: ActivatedRoute,
-    private accountService: AccountService
+    private accountService: AccountService,
+    private toastrService:ToastrService
   ) {}
 
   ngOnInit() {
@@ -34,10 +36,12 @@ export class CompanyComponent implements OnInit {
       (resp) => {
         console.log(resp);
         if (resp == true) {
+          this.toastrService.success("Successfully Saved")
           window.location.href = '/home';
         }
       },
       (error) => {
+        this.toastrService.error("Error")
         this.validationErrors = error.errors;
         console.log(this.validationErrors);
       }

@@ -9,6 +9,7 @@ import { HomeComponent } from './home/home.component';
 import { FormsModule } from '@angular/forms';
 import { ErrorInterceptor } from './_intercepters/error.interceptor';
 import { CompanyComponent } from './company/company.component';
+import { ToastrModule } from 'ngx-toastr';
 
 @NgModule({
   declarations: [
@@ -23,6 +24,10 @@ import { CompanyComponent } from './company/company.component';
     BrowserAnimationsModule,
     HttpClientModule,
     FormsModule,
+    ToastrModule.forRoot({
+      positionClass:'toast-bottom-right',
+      preventDuplicates:true
+    })
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
