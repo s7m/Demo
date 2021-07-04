@@ -19,7 +19,6 @@ export class CompanyService {
 
   getCompanies() {
     var url = this.baseUrl + 'Company';
-    //console.log(url);
     return this.http.get<Company[]>(url);
   }
 

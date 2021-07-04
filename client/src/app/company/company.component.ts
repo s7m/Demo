@@ -25,25 +25,23 @@ export class CompanyComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    //this.isloggedIn=this.accountService.isloggedIn();
-    console.log(this.isloggedIn);
-
     this.getCompanyByQueryParam();
   }
 
   saveCompany() {
     this.companyService.save(this.company).subscribe(
       (resp) => {
-        console.log(resp);
         if (resp == true) {
-          this.toastrService.success("Successfully Saved")
           window.location.href = '/home';
+          this.toastrService.success("Successfully Saved")
+        }
+        else{
+          this.toastrService.error("Failed, Something went wrong")
         }
       },
       (error) => {
         this.toastrService.error("Error")
         this.validationErrors = error.errors;
-        console.log(this.validationErrors);
       }
     );
   }
