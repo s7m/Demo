@@ -27,12 +27,20 @@ namespace API.Controllers
 
         [HttpPost]
         [AllowAnonymous]
-        public async Task<ActionResult<Company>> AddCompany(CompanyDto companyDto)
+        public async Task<ActionResult<Company>> SaveCompany(CompanyDto companyDto)
         {
             try
             {
                 var company = _mapper.Map<CompanyDto, Company>(companyDto);
-                await _companyRepo.Add(company);
+
+                if (company.Id > 0)
+                {
+                    await _companyRepo.Update(company);
+                }
+                else
+                {
+                    await _companyRepo.Add(company);
+                }
                 return Ok(company);
             }
             catch (Exception ex)
@@ -42,26 +50,16 @@ namespace API.Controllers
             return null;
         }
 
-        [HttpPut]
-        public async Task<ActionResult<Company>> UpdateCompany()
-        {
-            var comp = new Company
-            {
-                Id = 99,
-                Exchange = "exchange",
-                Ticker = "sss123",
-                Name = "Test",
-                ISIN = "isintest1",
-                Website = "ssswww"
-            };
+        [HttpPut] //Method not using now. SaveCompany is taking care of both insert and update
+        //public async Task<ActionResult<Company>> UpdateCompany(CompanyDto companyDto)
+        //{
+        //    var company = _mapper.Map<CompanyDto, Company>(companyDto);
+        //    var spec = new CompanyWithExchangeSpecification(company.Id);
+        //    var company = await _companyRepo.GetEntityWithSpec(spec);
+        //    await _companyRepo.Update(company);
 
-            var spec = new CompanyWithExchangeSpecification(comp.Id);
-            var company = await _companyRepo.GetEntityWithSpec(spec);
-            company.Ticker = comp.Ticker;
-            await _companyRepo.Update(company);
-
-            return Ok(company);
-        }
+        //    return Ok(company);
+        //}
         [HttpGet]
         public async Task<ActionResult<IReadOnlyList<CompanyDto>>> GetCompany()
         {

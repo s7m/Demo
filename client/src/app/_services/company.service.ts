@@ -1,7 +1,6 @@
 import {
   HttpClient,
   HttpHeaders,
-  JsonpClientBackend,
 } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
@@ -24,27 +23,27 @@ export class CompanyService {
 
   getCompanies() {
     var url = this.baseUrl + 'Company';
-    console.log(url);
+    //console.log(url);
     return this.http.get<Company[]>(url, httpOptions);
   }
 
   searchById(id) {
     var url = this.baseUrl + 'Company/id/' + id;
-    console.log(url);
+    //console.log(url);
     return this.http.get<Company>(url, httpOptions);
   }
 
   searchByISIN(id) {
     console.log(httpOptions);
     var url = this.baseUrl + 'Company/isin/' + id;
-    console.log(url);
+   // console.log(url);
     return this.http.get<Company>(url, httpOptions);
   }
 
   save(company: Company) {
-    console.log(company);
+   // console.log(company);
     var url = this.baseUrl + 'company';
-    console.log(url);
+    //console.log(url);
     return this.http.post(this.baseUrl + 'company', company);
   }
 }

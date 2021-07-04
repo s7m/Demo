@@ -1,9 +1,21 @@
-<form  class="form-signin" #addCompanyForm ="ngForm" (ngSubmit) ="saveCompany()" autocomplete="off">
+<form class="form-signin" #addCompanyForm ="ngForm" (ngSubmit) ="saveCompany()" autocomplete="off">
   <h1 class="h3 mb-3 font-weight-normal">Enter company details</h1>
-  <input type="text" name="name" [(ngModel)]="company.name" class="form-control w-25" placeholder="Name" required="">
-  <input type="text" name="exchange" [(ngModel)]="company.exchange" class="form-control mt-2 w-25" placeholder="Exchange" required="">
-  <input type="text" name="ticker" [(ngModel)]="company.ticker" class="form-control mt-2 w-25" placeholder="Ticker" required="">
-  <input type="text" name="isin" [(ngModel)]="company.isin" class="form-control mt-2 w-25" placeholder="ISIN" required="">
-  <input type="text" name="website" [(ngModel)]="company.website" class="form-control mt-2 w-25" placeholder="Website" required="">
-  <button class="btn btn-lg btn-primary btn-block w-25 mt-2" type="submit">Save</button>
+  <input type="text" name="name" [(ngModel)]="company.name" class="form-control w-25"
+  required
+  maxlength="500" placeholder="Name">
+  <input type="text" name="exchange" [(ngModel)]="company.exchange" class="form-control mt-2 w-25" placeholder="Exchange"
+  required
+  maxlength="100">
+  <input type="text" name="ticker" [(ngModel)]="company.ticker" class="form-control mt-2 w-25" placeholder="Ticker"
+   required
+   maxlength="100">
+   <div>
+  <input style="display:inline-block;" type="text" name="isin" [(ngModel)]="company.isin" class="form-control mt-2 w-25" placeholder="ISIN"
+  required pattern="^[A-Z]{2}([A-Z0-9]){9}[0-9]$"
+  maxlength="100"><i class="fa fa-info-circle" title="12-character alphanumeric code with the first two characters must be letters / non numeric."></i>
+</div>
+
+  <input type="text" name="website" [(ngModel)]="company.webSite" class="form-control mt-2 w-25" placeholder="Website"
+  maxlength="1000">
+  <button class="btn btn-lg btn-primary btn-block w-25 mt-2" type="submit" [disabled]="!addCompanyForm.form.valid">Save</button>
 </form>
