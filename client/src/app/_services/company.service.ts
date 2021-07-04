@@ -5,13 +5,8 @@ import {
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { Company } from '../models/company';
+import { TokenService } from './token.service';
 
-//ToDo:
-const httpOptions = {
- // headers: new HttpHeaders({
-   // Authorization: 'Bearer ' + JSON.parse(localStorage.getItem('user')).token,
- // }),
-};
 
 @Injectable({
   providedIn: 'root',
@@ -19,7 +14,8 @@ const httpOptions = {
 export class CompanyService {
   baseUrl = environment.apiUrl;
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient,
+    private tokenService:TokenService) {}
 
   getCompanies() {
     var url = this.baseUrl + 'Company';
@@ -28,22 +24,24 @@ export class CompanyService {
   }
 
   searchById(id) {
+    var httpOptions=this.tokenService.setHttpOptions();
     var url = this.baseUrl + 'Company/id/' + id;
-    //console.log(url);
     return this.http.get<Company>(url, httpOptions);
   }
 
   searchByISIN(id) {
-    console.log(httpOptions);
+    var httpOptions=this.tokenService.setHttpOptions();
     var url = this.baseUrl + 'Company/isin/' + id;
-   // console.log(url);
     return this.http.get<Company>(url, httpOptions);
   }
 
   save(company: Company) {
-   // console.log(company);
+
     var url = this.baseUrl + 'company';
-    //console.log(url);
-    return this.http.post(this.baseUrl + 'company', company);
+    console.log(company);
+
+    return this.http.post(url, company);
   }
+
+
 }

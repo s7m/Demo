@@ -11,9 +11,8 @@
    maxlength="100">
    <div>
   <input style="display:inline-block;" type="text" name="isin" [(ngModel)]="company.isin" class="form-control mt-2 w-25" placeholder="ISIN"
-
   #isinNgModel="ngModel"
-  appIsinValidator
+  required pattern="^[A-Z]{2}([A-Z0-9]){9}[0-9]$"
   [class.is-invalid]="(isinNgModel.touched || isinNgModel.dirty) && isinNgModel.errors?.IsinInvalid"
   maxlength="100"><i class="fa fa-info-circle" title="12-character alphanumeric code with the first two characters must be letters / non numeric."></i>
   <span

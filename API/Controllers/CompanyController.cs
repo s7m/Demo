@@ -1,4 +1,5 @@
 using API.Dtos;
+using API.Error;
 using AutoMapper;
 using Core.Entities;
 using Core.Interfaces;
@@ -12,7 +13,6 @@ using System.Threading.Tasks;
 namespace API.Controllers
 {
     [Authorize]
-
     public class CompanyController : BaseAPIController
     {
         private readonly IGenericRepository<Company> _companyRepo;
@@ -25,6 +25,13 @@ namespace API.Controllers
             _mapper = mapper;
         }
 
+        [HttpGet("emailexists")]
+        public async Task<ActionResult<bool>> CheckISINExistsAsync([FromQuery] string isin)
+        {
+            var company = await GetCompany(isin);
+            return company.Value == null ? false : true;
+        }
+
         [HttpPost]
         public async Task<ActionResult<bool>> SaveCompany(CompanyDto companyDto)
         {
@@ -34,10 +41,27 @@ namespace API.Controllers
 
                 if (company.Id > 0)
                 {
-                    await _companyRepo.Update(company);
+                    var resultComp = await GetCompany(companyDto.Id);
+                    var companyFromDB = resultComp.Value;
+                    if (companyFromDB != null)
+                    {
+                        if (companyFromDB.ISIN.ToLower() != company.ISIN.ToLower())
+                        {
+                            if (CheckISINExistsAsync(company.ISIN).Result.Value)
+                            {
+                                return new BadRequestObjectResult(new ErrorResponse { Errors = new[] { "ISIN already exists." } });
+                            }
+                        }
+                        await _companyRepo.Update(company);
+                    }
                 }
                 else
                 {
+                    if (CheckISINExistsAsync(company.ISIN).Result.Value)
+                    {
+                        return new BadRequestObjectResult(new ErrorResponse { Errors = new[] { "ISIN already exists." } });
+                    }
+
                     await _companyRepo.Add(company);
                 }
                 return Ok(true);
@@ -48,7 +72,8 @@ namespace API.Controllers
             }
         }
 
-        [HttpPut] //Method not using now. SaveCompany is taking care of both insert and update
+        //[HttpPut] 
+        //Method not using now. SaveCompany is taking care of both insert and update
                   //public async Task<ActionResult<Company>> UpdateCompany(CompanyDto companyDto)
                   //{
                   //    var company = _mapper.Map<CompanyDto, Company>(companyDto);

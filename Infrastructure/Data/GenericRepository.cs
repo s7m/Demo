@@ -37,7 +37,7 @@ namespace Infrastructure.Data
                 _context.Set<T>().Update(entity);
                 return await _context.SaveChangesAsync();
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 throw;
             }
