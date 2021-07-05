@@ -8,10 +8,11 @@ A demo application for keeping Company record specifying the Name, Stock Ticker,
 4. To add or search company, login using the credentials given below,
     username: user1
     password: pass123
-5. If you get any cros errror, open the startup.cs on the API project and update the code 
+5. If you get any cors errror, open the startup.cs on the API project and update the code 
                 opt.AddPolicy("CorsPolicy", policy =>
                  {
                      policy.AllowAnyHeader().AllowAnyMethod().WithOrigins("http://localhost:4200");
                  });
     with the client url
+
     
