@@ -14,5 +14,5 @@ A demo application for keeping Company record specifying the Name, Stock Ticker,
                      policy.AllowAnyHeader().AllowAnyMethod().WithOrigins("http://localhost:4200");
                  });
     with the client url
-
+-----
     
